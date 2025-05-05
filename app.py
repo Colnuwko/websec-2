@@ -19,8 +19,9 @@ def get_countries():
 def get_schedule_for_one_station():
     code_station = str(request.args.get('code_station'))
     date = str(request.args.get('date'))
-    event = bool(request.args.get('event'))
-    schedule = backend.get_schedule_for_one_station()
+    schedule = backend.get_schedule_for_one_station(code_station, date)
     return jsonify(schedule)
+
+
 if __name__ == '__main__':
     app.run(debug=True)

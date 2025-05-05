@@ -1,5 +1,8 @@
 <template>
-
+  <div>
+    <h1>Страница 1</h1>
+    <router-link to="/p2p_schedule">Перейти на страницу 2</router-link>
+  </div>
   <div>
     <div>
       <h1>Расписание одинокой станции.</h1>
@@ -18,22 +21,46 @@
         </option>
       </select>
     </div>
-
+    <div>
+      <h1>Выберите дату</h1>
+      <input type="date" v-model="selectedDate" />
+      <p>{{ selectedDate }}</p>
+    </div>
+    <div>
+      <button @click="handleClick">Дай расписание</button>
+    </div>
+  </div>
+  <div>
+    <h1>Расписание поездов</h1>
+    <div class="routes-list">
+      <RouteCard
+        v-for="(route, index) in routes"
+        :key="index"
+        :route="route"
+      />
+    </div>
   </div>
 
 </template>
 
 <script>
-
+import RouteCard from "@/components/RouteCard.vue";
 import axios from 'axios';
 
 export default {
+  components: {
+    RouteCard
+  },
+
   data() {
     return {
       items: [],
       regions: [],
       selectedRegion: null,
-      selectedStations: null
+      selectedStations: null,
+      selectedDate: "",
+      station: {},
+      routes: []
     };
   },
   created() {
@@ -45,10 +72,22 @@ export default {
       const response = await axios.get('http://localhost:5000/get_countries'); // Подставьте ваш адрес API
       this.regions = response.data;
     },
-
+    handleClick() {
+      if (this.selectedRegion == null || this.selectedStations == null)
+      {
+        alert("Нельзя так, данные клацни")
+      }
+      else {
+        axios.get('http://localhost:5000/get_schedule_for_one_station', {params: {code_station: this.selectedStations.code, date: this.selectedDate}})
+            .then(response => {
+              this.station = response.data['station']
+              this.routes = response.data['schedule']
+              console.log(this.routes)
+            });
+      }
+    },
     fetchSchedule() {
       this.$emit('station-selected', this.selectedStations);
-      console.log(this.selectedStations.code)
     },
     fetchStations() {
       this.$emit('region-selected', this.selectedRegion);

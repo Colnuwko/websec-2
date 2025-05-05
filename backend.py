@@ -3,7 +3,7 @@ import operator
 import requests
 key = "6372c732-186c-4529-8697-aeae19ad3de5"
 YANDEX_API_URL = "https://api.rasp.yandex.net/v3.0/"
-response = requests.get(f"{YANDEX_API_URL}stations_list/?apikey={key}&lang=ru_RU&format=json")
+response = requests.get(f"{YANDEX_API_URL}stations_list/?apikey={key}&lang=ru_RU&format=json") # я вынес это сюда, так как 100500 раз кликал функции, боюсь лимит исчерпается. Делать так кроме как здесь страшный гре\/
 
 def get_stations(pick_country: str):
     all_stations = response.json()['countries']
@@ -27,3 +27,14 @@ def get_countries():
     countries = sorted(countries, key=lambda item: item['title'])
     print(countries)
     return countries
+
+
+def get_schedule_for_one_station(code_station: str, date: str):
+    print(code_station, date)
+    schedule = requests.get(f"{YANDEX_API_URL}schedule/?apikey={key}&station={code_station}&format=json&lang=ru_RU",
+                            params={'date': date})
+
+    # так кстати круче данные передавать))
+    schedule = schedule.json()
+    print(schedule)
+    return {'station': schedule['station'], 'schedule': schedule['schedule']}

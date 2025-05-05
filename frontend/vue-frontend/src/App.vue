@@ -1,19 +1,16 @@
 <template>
 
   <div id="app">
-    <ItemsX />
+    <router-view></router-view>
   </div>
 
 </template>
 
 <script>
 
-import ItemsX from './components/ItemsX.vue';
+
 export default {
-  name: 'App',
-  components: {
-    ItemsX
-  }
+  name: 'App'
 };
 
 </script>
