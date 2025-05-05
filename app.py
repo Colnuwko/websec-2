@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, request, jsonify
 from flask_cors import CORS
 import backend
 app = Flask(__name__)
@@ -22,6 +22,13 @@ def get_schedule_for_one_station():
     schedule = backend.get_schedule_for_one_station(code_station, date)
     return jsonify(schedule)
 
+@app.route('/get_schedule_between_stations', methods=['GET'])
+def get_schedule_between_stations():
+    start_code_station = str(request.args.get('start_code_station'))
+    end_code_station = str(request.args.get('end_code_station'))
+    date = str(request.args.get('date'))
+    schedule = backend.get_schedule_between_stations(start_code_station, end_code_station, date)
+    return jsonify(schedule)
 
 if __name__ == '__main__':
     app.run(debug=True)

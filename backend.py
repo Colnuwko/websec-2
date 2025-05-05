@@ -32,9 +32,13 @@ def get_countries():
 def get_schedule_for_one_station(code_station: str, date: str):
     print(code_station, date)
     schedule = requests.get(f"{YANDEX_API_URL}schedule/?apikey={key}&station={code_station}&format=json&lang=ru_RU",
-                            params={'date': date})
-
+                            params={'date': date}).json()
     # так кстати круче данные передавать))
-    schedule = schedule.json()
     print(schedule)
     return {'station': schedule['station'], 'schedule': schedule['schedule']}
+
+def get_schedule_between_stations(start_code_station: str, end_code_station: str, date: str):
+    schedule = requests.get(f"{YANDEX_API_URL}search/?apikey={key}&format=json&lang=ru_RU",
+                            params={'date': date, 'from': start_code_station, 'to': end_code_station}).json()
+    print(schedule)
+    return {'search': schedule['search'], 'schedule': schedule['segments']}
