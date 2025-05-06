@@ -1,14 +1,26 @@
 <template>
-  <div class="route-card">
-    <h3>{{ route.thread.title }} ({{ route.thread.number }})</h3>
-    <p><strong>Перевозчик:</strong> {{ route.thread.carrier.title }}</p>
-    <p><strong>Отправление поезда:</strong> {{ formatDate(route.departure) }}</p>
-    <p><strong>Прибытие поезда:</strong> {{ formatDate(route.arrival) }}</p>
-    <p><strong>Дни курсирования:</strong> {{ route.days }}</p>
-    <p><strong>Остановки:</strong> {{ route.stops }}</p>
-    <p><strong>Тип транспорта:</strong> {{ translate(route.thread.transport_type) }}</p>
-
-  </div>
+<div class="card mb-3 shadow-sm w-100">
+    <table  class="table table-bordered">
+      <tbody>
+      <tr>
+        <td class="w-40">
+          <h3 class="card-title text-primary">{{ route.thread.title }} ({{ route.thread.number }})</h3>
+          <p><strong>Перевозчик:</strong> <span class="text-info">{{ route.thread.carrier.title }}</span></p>
+          <p><strong>Тип транспорта:</strong> <span class="text-muted">{{ translate(route.thread.transport_type) }}</span></p>
+        </td>
+        <td class="w-20">
+          <p><strong>Отправление поезда:</strong> <span class="text-success">{{ formatDate(route.departure) }}</span></p>
+        </td>
+        <td class="20">
+          <p><strong>Прибытие поезда:</strong> <span class="text-success">{{ formatDate(route.arrival) }}</span></p>
+        </td>
+        <td class="w-20">
+          <p><strong>Дни курсирования:</strong> <span class="text-warning">{{ route.days }}</span></p>
+        </td>
+      </tr>
+      </tbody>
+   </table >
+</div>
 </template>
 
 <script>
