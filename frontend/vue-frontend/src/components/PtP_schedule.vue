@@ -1,43 +1,55 @@
 <template>
-  <div>
-    <h1>Страница 2</h1>
-    <router-link to="/">Вернуться на страницу 1</router-link>
-  </div>
-  <div>
-    <div>
-      <h1>Расписание между станциями.</h1>
-      <label for="region">Откуда:</label>
-      <select v-model="selectedStationStart" @change="fetchStationStart">
-        <option v-for="item in items" :key="item.code" :value="item">
-          {{ item.title }}
-        </option>
-      </select>
+  <div class="container mt-5">
+    <h1 class="text-center">Страница 2</h1>
+    <div class="text-center mb-4">
+      <router-link to="/" class="btn btn-primary">Вернуться на страницу 1</router-link>
     </div>
-    <div>
-    <label for="region">Куда:</label>
-      <select v-model="selectedStationEnd" @change="fetchStationEnd">
-        <option v-for="item in items" :key="item.code" :value="item">
-          {{ item.title }}
-        </option>
-      </select>
+
+    <div class="card mb-4">
+      <div class="card-body">
+        <h2 class="card-title">Расписание между станциями.</h2>
+        <div class="mb-3">
+          <label for="region" class="form-label">Откуда:</label>
+          <select v-model="selectedStationStart" @change="fetchStationStart" class="form-select">
+            <option v-for="item in items" :key="item.code" :value="item">
+              {{ item.title }}
+            </option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+        <label for="region" class="form-label">Куда:</label>
+          <select v-model="selectedStationEnd" @change="fetchStationEnd" class="form-select">
+            <option v-for="item in items" :key="item.code" :value="item">
+              {{ item.title }}
+            </option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <h3>Выберите дату</h3>
+          <input type="date" v-model="selectedDate" class="form-control"/>
+          <p class="mt-2">{{ selectedDate }}</p>
+        </div>
+
+        <div class="text-center">
+          <button @click="handleClick" class="btn btn-success">Дай расписание</button>
+        </div>
+      </div>
     </div>
-    <div>
-      <h1>Выберите дату</h1>
-      <input type="date" v-model="selectedDate" />
-      <p>{{ selectedDate }}</p>
-    </div>
-    <div>
-      <button @click="handleClick">Дай расписание</button>
-    </div>
-  </div>
-  <div>
-    <h1>Расписание поездов</h1>
-    <div class="routes-list">
-      <PtP_RouteCard
-        v-for="(route, index) in routes"
-        :key="index"
-        :route="route"
-      />
+
+    <div class="card">
+      <div class="card-body">
+        <h2 class="card-title">Расписание поездов</h2>
+        <div class="flex flex-row">
+          <PtP_RouteCard
+            v-for="(route, index) in routes"
+            :key="index"
+            :route="route"
+            class="col-md-6 mb-4"
+          />
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -103,8 +115,10 @@ export default {
 </script>
 
 <style scoped>
-h1 {
+h1, h2, h3 {
   color: #42b983;
 }
-
+label {
+  font-weight: bold;
+}
 </style>

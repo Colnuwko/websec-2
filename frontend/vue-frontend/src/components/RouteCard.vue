@@ -11,7 +11,7 @@
         <td class="w-20">
           <p><strong>Отправление поезда:</strong> <span class="text-success">{{ formatDate(route.departure) }}</span></p>
         </td>
-        <td class="20">
+        <td class="w-20">
           <p><strong>Прибытие поезда:</strong> <span class="text-success">{{ formatDate(route.arrival) }}</span></p>
         </td>
         <td class="w-20">

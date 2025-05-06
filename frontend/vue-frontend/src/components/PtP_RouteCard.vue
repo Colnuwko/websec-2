@@ -1,23 +1,38 @@
 
 <template>
-      <h2 class="title">{{ route.thread.title }}</h2>
-      <div class="route-card">
-        <p><strong>Отправление:</strong> {{ formatDate(route.departure) }} ({{ route.from.title }})</p>
-        <p><strong>Прибытие:</strong> {{ formatDate(route.arrival) }} ({{ route.to.title }})</p>
-        <p><strong>Тип транспорта:</strong> {{ translate(route.thread.transport_type) }}</p>
-        <p><strong>Номер рейса:</strong> {{ route.thread.number }}</p>
-        <p><strong>Длительность:</strong> {{ formatDuration(route.duration) }}</p>
-        <p><strong>Пересадки:</strong> {{ route.has_transfers ? 'Да' : 'Нет' }}</p>
-        <div v-if="route.tickets_info">
-          <h4>Информация о билетах:</h4>
-          <ul>
-            <li v-for="ticket in route.tickets_info.places" :key="ticket.name">
-              {{ ticket.price.whole }}.{{ ticket.price.cents }} ₽
-            </li>
-          </ul>
-        </div>
-        <p><strong>Остановки:</strong> {{ route.stops || 'Нет остановок по пути' }}</p>
-      </div>
+  <div class="card mb-3 shadow-sm w-100">
+    <table  class="table table-bordered">
+      <tbody>
+        <tr>
+          <td class="w-40">
+            <h3 class="card-title text-primary">{{ route.thread.title }}</h3>
+            <p><strong>Номер рейса:</strong> <span class="text-info">{{ route.thread.number }}</span></p>
+            <p><strong>Тип транспорта:</strong> <span class="text-muted">{{ translate(route.thread.transport_type) }}</span></p>
+          </td>
+          <td class="w-15">
+            <p><strong>Отправление:</strong> <span class="text-success">{{ formatDate(route.departure) }} ({{ route.from.title }})</span></p>
+          </td>
+          <td class="w-15">
+            <p><strong>Прибытие:</strong> <span class="text-success">{{ formatDate(route.arrival) }} ({{ route.to.title }})</span></p>
+          </td>
+          <td class="w-15">
+            <p><strong>Длительность:</strong> <span class="text-warning">{{ formatDuration(route.duration) }}</span></p>
+            <p><strong>Пересадки:</strong> <span class="text-warning">{{ route.has_transfers ? 'Да' : 'Нет' }}</span></p>
+          </td>
+          <td class="w-15">
+            <div v-if="route.tickets_info">
+              <h4 class="card-title text-primary">Информация о билетах:</h4>
+              <ul>
+                <li v-for="ticket in route.tickets_info.places" :key="ticket.name">
+                  {{ ticket.price.whole }}.{{ ticket.price.cents }} ₽
+                </li>
+              </ul>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </template>
 
 <script>
