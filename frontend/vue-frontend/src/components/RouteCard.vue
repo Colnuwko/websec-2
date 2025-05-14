@@ -1,25 +1,54 @@
 <template>
-<div class="card mb-3 shadow-sm w-100">
-    <table  class="table table-bordered">
+<div class="card mb-3 w-100">
+    <table  class="table table-bordered table-hover b-table-fixed mb-0">
       <tbody>
       <tr>
-        <td class="w-40">
-          <h3 class="card-title text-primary">{{ route.thread.title }} ({{ route.thread.number }})</h3>
-          <p><strong>Перевозчик:</strong> <span class="text-info">{{ route.thread.carrier.title }}</span></p>
-          <p><strong>Тип транспорта:</strong> <span class="text-muted">{{ translate(route.thread.transport_type) }}</span></p>
+        <td class="col-4 largeScreen">
+          <div>
+            <h3 class="text-primary">{{ route.thread.title }} ({{ route.thread.number }})</h3>
+            <p><strong>Перевозчик:</strong> <span class="text-info">{{ route.thread.carrier.title }}</span></p>
+            <p><strong>Тип транспорта:</strong> <span class="text-muted">{{ translate(route.thread.transport_type) }}</span></p>
+          </div>
         </td>
-        <td class="w-20">
-          <p><strong>Отправление поезда:</strong> <span class="text-success">{{ formatDate(route.departure) }}</span></p>
+        <td class="col-2 largeScreen" >
+          <div>
+            <div class="w-100"><strong>Отправление поезда:</strong></div>
+            <div class="w-100"><span class="text-success">{{ formatDate(route.departure) }}</span></div>
+          </div>
         </td>
-        <td class="w-20">
-          <p><strong>Прибытие поезда:</strong> <span class="text-success">{{ formatDate(route.arrival) }}</span></p>
+        <td class="col-2 largeScreen">
+          <div>
+            <div class="w-100"><strong>Прибытие поезда:</strong></div>
+            <div class="w-100"><span class="text-success">{{ formatDate(route.arrival) }}</span></div>
+          </div>
         </td>
-        <td class="w-20">
-          <p><strong>Дни курсирования:</strong> <span class="text-warning">{{ route.days }}</span></p>
+        <td class="col-2 largeScreen">
+          <div>
+            <div class="w-100"><strong>Дни курсирования:</strong></div>
+            <div class="w-100"><span class="text-warning">{{ route.days }}</span></div>
+          </div>
+        </td>
+
+        <td class="col-4 smallScreen">
+          <div>
+            <p class="text-primary">{{ route.thread.title }} ({{ route.thread.number }})</p>
+            <p><strong>Перевозчик:</strong> <span class="text-info">{{ route.thread.carrier.title }}</span></p>
+            <p><strong>Тип транспорта:</strong> <span class="text-muted">{{ translate(route.thread.transport_type) }}</span></p>
+          </div>
+        </td>
+        <td class="col-1 smallScreen" >
+          <div>
+            <div class="w-100"><strong>Отправление поезда:</strong></div>
+            <div class="w-100"><span class="text-success">{{ formatDate(route.departure) }}</span></div>
+            <div class="w-100"><strong>Прибытие поезда:</strong></div>
+            <div class="w-100"><span class="text-success">{{ formatDate(route.arrival) }}</span></div>
+            <div class="w-100"><strong>Дни курсирования:</strong></div>
+            <div class="w-100"><span class="text-warning">{{ route.days }}</span></div>
+          </div>
         </td>
       </tr>
       </tbody>
-   </table >
+   </table>
 </div>
 </template>
 
@@ -68,5 +97,14 @@ export default {
   padding: 16px;
   margin: 8px;
   background-color: #f9f9f9;
+}
+
+@media only screen and (max-width: 960px) {
+        .largeScreen {display: none;}
+
+   }
+ /* On larger resolutions, hide the text for Small screens */
+@media only screen and (min-width: 960px) {
+    .smallScreen {display: none;}
 }
 </style>
